@@ -17,17 +17,22 @@ def main():
             else:
                 messagebox.showerror("Error", "Failed to upload PDF.")
 
-    def handle_query(question_entry, answer_textbox):
+    # Get the UI widgets from create_ui
+    question_entry, answer_box, upload_btn, ask_btn = create_ui(root, handle_upload, None)
+
+    # Now define the query handler that uses the widgets captured here
+    def handle_query():
         question = question_entry.get()
         if question.strip() == "":
             messagebox.showwarning("Input Required", "Please enter a question.")
             return
         answer = ask_question(question)
-        answer_textbox.delete("1.0", tk.END)
-        answer_textbox.insert(tk.END, answer)
+        answer_box.delete("1.0", tk.END)
+        answer_box.insert(tk.END, answer)
 
-    create_ui(root, handle_upload, handle_query)
+    # Assign the ask button command now that handle_query has no params
+    ask_btn.config(command=handle_query)
+
     root.mainloop()
-
 if __name__ == "__main__":
     main()
