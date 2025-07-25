@@ -38,3 +38,40 @@ def create_ui(root, upload_callback, query_callback):
     container.columnconfigure(0, weight=1)
     
     return question_entry, answer_box, upload_btn, ask_btn
+
+def create_pdf_manager_ui(root):
+    container = ttk.Frame(root, padding=10)
+    container.grid(row=1, column=0, sticky="NSEW", pady=(10,0))  # Below existing container
+
+    # Make container expandable
+    root.rowconfigure(1, weight=1)
+    root.columnconfigure(0, weight=1)
+    container.rowconfigure(1, weight=1)
+    container.columnconfigure(0, weight=1)
+
+    ttk.Label(container, text="Stored PDFs:").grid(row=0, column=0, sticky="W")
+
+    # Listbox with scrollbar inside a frame
+    list_frame = ttk.Frame(container)
+    list_frame.grid(row=1, column=0, sticky="NSEW")
+
+    scrollbar = ttk.Scrollbar(list_frame, orient="vertical")
+    scrollbar.pack(side="right", fill="y")
+
+    pdf_listbox = tk.Listbox(list_frame, height=10, yscrollcommand=scrollbar.set)
+    pdf_listbox.pack(side="left", fill="both", expand=True)
+    scrollbar.config(command=pdf_listbox.yview)
+
+    # Buttons
+    btn_frame = ttk.Frame(container)
+    btn_frame.grid(row=2, column=0, pady=5, sticky="EW")
+
+    refresh_btn = ttk.Button(btn_frame, text="Refresh List")
+    view_btn = ttk.Button(btn_frame, text="View PDF")
+    delete_btn = ttk.Button(btn_frame, text="Delete PDF")
+
+    refresh_btn.pack(side="left", padx=5)
+    view_btn.pack(side="left", padx=5)
+    delete_btn.pack(side="left", padx=5)
+
+    return pdf_listbox, refresh_btn, view_btn, delete_btn
