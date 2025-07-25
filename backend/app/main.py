@@ -23,7 +23,7 @@ async def upload_pdf(file: UploadFile = File(...)):
 async def query_document(query: str = Form(...)):
     return await query_pdf(query)
 
-# 👇 Go up from app/ to backend/
+# Go up from app/ to backend/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PDF_DIR = os.path.join(BASE_DIR, "data", "documents")
 
