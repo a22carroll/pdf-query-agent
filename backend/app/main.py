@@ -15,6 +15,7 @@ app.add_middleware(
 
 @app.post("/upload")
 async def upload_pdf(file: UploadFile = File(...)):
+    print("got file")
     return await process_pdf(file)
 
 @app.post("/query")
